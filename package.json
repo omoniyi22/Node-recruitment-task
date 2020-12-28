@@ -4,7 +4,10 @@
   "description": "NetGuru Node Assessment",
   "scripts": {
     "test": "jest",
+    "testWatch": "jest --watchAll",
     "start": "node src/index.js",
+    "dev": "nodemon dev/server.ts",
+    "build": "tsc -p ."
   },
   "repository": {
     "type": "git"
