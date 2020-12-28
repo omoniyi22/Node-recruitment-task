@@ -1,13 +1,20 @@
+import mongoose from 'mongoose'
+import config from '../../config';
 let { MovieModel } = require("./../../components/Movies/model");
 let supertest = require('supertest')
 let app = require('./../../app')
+
 
 let basic_token: String
 let premuim_token: String
 let title = "fast"
 
 describe('User and Movie Test', () => {
-  beforeAll(() => MovieModel.deleteMany({}))
+  beforeAll(async () => {
+    const url = config.MONGO_URI;
+    await mongoose.connect(url, { useNewUrlParser: true });
+    MovieModel.deleteMany({})
+  })
   afterAll(() => MovieModel.deleteMany({}))
 
   it("it should signin a basic user", async (done) => {
