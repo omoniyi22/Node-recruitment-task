@@ -10,10 +10,16 @@ let premuim_token: String
 let title = "fast"
 
 describe('User and Movie Test', () => {
-  beforeAll(async () => {
-    const url = config.MONGO_URI;
-    await mongoose.connect(url, { useNewUrlParser: true });
-    MovieModel.deleteMany({})
+  beforeAll(async (done) => {
+    try {
+      const url = config.MONGO_URI;
+      await mongoose.connect(url, { useNewUrlParser: true });
+      MovieModel.deleteMany({})
+      done()
+    } catch (error) {
+      console.log(error)
+      done()
+    }
   })
   afterAll(() => MovieModel.deleteMany({}))
 

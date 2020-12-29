@@ -22,9 +22,14 @@ let premuim_token;
 let title = "fast";
 describe('User and Movie Test', () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        const url = config_1.default.MONGO_URI;
-        yield mongoose_1.default.connect(url, { useNewUrlParser: true });
-        MovieModel.deleteMany({});
+        try {
+            const url = config_1.default.MONGO_URI;
+            yield mongoose_1.default.connect(url, { useNewUrlParser: true });
+            MovieModel.deleteMany({});
+        }
+        catch (error) {
+            console.log(error);
+        }
     }));
     afterAll(() => MovieModel.deleteMany({}));
     it("it should signin a basic user", (done) => __awaiter(void 0, void 0, void 0, function* () {
