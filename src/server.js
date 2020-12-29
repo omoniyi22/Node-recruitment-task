@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const App = require("./app");
 //Change port to 8080 when deploying to aws
-const port = normalizePort(process.env.APP_PORT || 3000); //Don't forget to change it to port 5000 during production
+const port = normalizePort(process.env.PORT || 3000); //Don't forget to change it to port 5000 during production
 //const port = normalizePort(process.env.PORT);
 App.set("port", port);
 const server = http.createServer(App);
