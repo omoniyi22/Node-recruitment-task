@@ -8,6 +8,10 @@ import UserRouter from "./routes/user.route";
 import config from "./config";
 dotenv.config();
 
+const MongoClient = require('mongodb').MongoClient;
+
+
+
 const addPrefix = (name: string) => `/api/v1/${name}`;
 
 const routes = [
@@ -37,25 +41,19 @@ class App implements IClassFunctions {
   }
 
   public config(): void {
-    //Connect to Mongoose
-
-    mongoose
-      .connect(config.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-        user: 'omoniyi', // IMPORTANT TO HAVE IT HERE AND NOT IN CONNECTION STRING
-        pass: 'omoniyi', // IMPORTANT TO HAVE IT HERE AND NOT IN CONNECTION STRING
-        dbName: '<dbname>'
-      })
-      .then(() => {
-        console.log("connected successfully to mongoose");
-      })
-      .catch((err) => {
-        console.log("Error connecting to mongodb", err);
-        process.exit(1);
-      });
+    console.log({ coc: config.MONGO_URI })
+    const client = new MongoClient(config.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    client.connect((err: Error, res: Response) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log("Mongo connected")
+      }
+      client.close();
+    })
 
     //configurations
     this.app.use(bodyParser.json());

@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  app:
+    container_name: node_assessment
+    restart: always
+    command: node src/server.js
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - published: ${APP_PORT:-3000}
+        target: 3000
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      APP_PORT: ${APP_PORT}
+      MONGO_URI: ${MONGO_URI}
